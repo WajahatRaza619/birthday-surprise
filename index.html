@@ -866,7 +866,7 @@ transform:scale(1.08);
 
 </div>
 
-<button id="nextBtn" class="nextBtn">Next →</button>
+<button id="nextBtn" class="nextBtn" onclick="goToEnvelope()">Next →</button>
 
 </div>
 
@@ -1035,6 +1035,12 @@ document.body.appendChild(c);
 
 }
 
+}
+
+function goToEnvelope() {
+  setTimeout(() => {
+    window.location.href = "envelope.html";
+  }, 300);
 }
 
 </script>
