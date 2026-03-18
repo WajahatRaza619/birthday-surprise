@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+  background:linear-gradient(135deg,#ffafbd,#ffc3a0);
+}
+
+/* Fade animation */
+.screen{
+  display:none;
+  height:100vh;
+  width:100%;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding-top:20px;
+  animation:fadeIn 0.8s ease forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+#loginScreen{ display:flex; }
+
+.loginTitle{
+  color:white;
+  font-size:42px;
+  font-weight:800;
+  margin-bottom:140px;
+  text-align:center;
+}
+
+.inputWrapper{ position:relative; margin-bottom:30px; }
+
+#dateInput{
+  padding:18px;
+  width:300px;
+  border:none;
+  border-radius:40px;
+  text-align:center;
+  font-size:20px;
+  background:white;
+  outline:none;
+}
+
+/* LOGIN CAT */
+.catFace{
+  position:absolute;
+  top:-80px;
+  left:50%;
+  transform:translateX(-50%);
+  width:130px;
+  height:105px;
+  background:white;
+  border-radius:50% 50% 45% 45%;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  transition:0.3s ease;
+}
+.ear{ position:absolute;width:45px;height:45px;background:white;top:-22px;border-radius:50% 50% 0 0; }
+.earLeft{ left:12px; transform:rotate(-20deg); }
+.earRight{ right:12px; transform:rotate(20deg); }
+
+.eyes{ display:flex;justify-content:space-around;margin-top:36px; }
+.eye{ width:16px;height:20px;background:#333;border-radius:50%; }
+
+.coverEyes .eye{
+  background:transparent;
+  border-top:4px solid #333;
+  height:0;margin-top:12px;
+}
+
+.mouth{
+  width:32px;height:16px;
+  border-bottom:4px solid #ff6f91;
+  border-radius:0 0 25px 25px;
+  margin:12px auto 0;
+  transition:0.3s ease;
+}
+.happy .mouth{
+  width:50px;height:25px;
+  border-bottom:5px solid #ff4d6d;
+  border-radius:0 0 45px 45px;
+}
+.sad .mouth{
+  border-bottom:none;
+  border-top:5px solid #ff4d6d;
+  border-radius:45px 45px 0 0;
+}
+
+.blush{
+  position:absolute;
+  width:25px;height:15px;
+  background:#ff9eb5;border-radius:50%;
+  bottom:40px;opacity:0;
+}
+.blushLeft{ left:25px; }
+.blushRight{ right:25px; }
+.showBlush{ opacity:1; }
+
+@keyframes jump{
+  0%{ transform:translateX(-50%) translateY(0); }
+  50%{ transform:translateX(-50%) translateY(-30px); }
+  100%{ transform:translateX(-50%) translateY(0); }
+}
+.jump{ animation:jump 0.6s ease; }
+
+/* Buttons */
+button{
+  padding:14px 40px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#ff4d6d;
+  font-weight:700;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* CARD SCREEN */
+#nextScreen{
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffe6f0,#fff6fb);
+}
+
+.birthdayCard{
+  width:360px;
+  padding:40px 25px 50px;
+  border-radius:35px;
+  background:#ffffff;
+  text-align:center;
+  box-shadow:0 25px 60px rgba(0,0,0,0.12);
+}
+
+.imageBox{
+  width:100%;
+  height:160px;
+  border-radius:25px;
+  background:linear-gradient(to bottom,#ffd6ec,#ffc2e2);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  margin-bottom:25px;
+}
+
+.cuteChar{
+  width:100px;
+  height:100px;
+  background:white;
+  border-radius:50%;
+  position:relative;
+  margin-bottom:-20px;
+}
+
+.charEar{
+  width:30px;
+  height:30px;
+  background:#6b4b3e;
+  border-radius:50%;
+  position:absolute;
+  top:-10px;
+}
+.leftEar{ left:10px; }
+.rightEar{ right:10px; }
+
+.charEyes{
+  display:flex;
+  justify-content:space-around;
+  margin-top:35px;
+}
+.charEye{
+  width:8px;
+  height:8px;
+  background:#333;
+  border-radius:50%;
+  animation:blink 1s infinite;
+  transform-origin:center;
+}
+
+@keyframes blink{
+  0%, 92%, 100%{
+    transform:scaleY(1);
+  }
+  95%{
+    transform:scaleY(0.1);
+  }
+}
+.charMouth{
+  width:20px;
+  height:10px;
+  border-bottom:3px solid #333;
+  border-radius:0 0 20px 20px;
+  margin:8px auto 0;
+}
+
+.charBlush{
+  width:18px;
+  height:12px;
+  background:#ff9eb5;
+  border-radius:50%;
+  position:absolute;
+  bottom:25px;
+}
+.leftBlush{ left:15px; }
+.rightBlush{ right:15px; }
+
+.birthdayCard h2{ font-size:22px;color:#8a2c6d;margin-bottom:10px; }
+.birthdayCard p{ color:#666;font-size:15px;margin-bottom:25px; }
+
+.startBtn{
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(90deg,#ff9a9e,#fecfef);
+  font-weight:600;
+  color:#7a004f;
+  cursor:pointer;
+}
+
+/* FINAL FANCY SCREEN */
+.finalFancy{
+  justify-content:center;   /* center vertically */
+  align-items:center;
+  text-align:center;
+  padding-top:0;            /* remove extra top space */
+  background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#ffdde1);
+  background-size:400% 400%;
+  animation:gradientMove 8s ease infinite;
+  position:relative;
+  overflow:hidden;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.birthdayTitle{
+  font-size:52px;
+  font-weight:800;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:white;
+  text-shadow:0 8px 25px rgba(0,0,0,0.25);
+  margin-bottom:40px;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+
+.glassCard{
+  margin-top:20px;
+  padding:40px;
+  max-width:420px;
+  width:90%;
+  border-radius:30px;
+  background:white;
+  box-shadow:0 25px 60px rgba(0,0,0,0.15);
+}
+
+.finalMessage{
+  font-size:20px;
+  color:#333;
+  line-height:1.8;
+  font-weight:500;
+}
+
+.restartBtn{
+  margin-top:40px;
+  padding:14px 35px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#ff4d6d;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.restartBtn:hover{
+  transform:scale(1.1);
+}
+
+.floatingHearts span{
+  position:absolute;
+  animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+  from{ transform:translateY(100vh); opacity:0; }
+  30%{opacity:1;}
+  to{ transform:translateY(-10vh); opacity:0; }
+}
+
+/* LOADING SCREEN */
+.loadingPage{
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#f8e1f4,#e6e6fa,#ffe6e6);
+  text-align:center;
+}
+
+.loadingContent h2{
+  font-size:22px;
+  color:#5a4a6d;
+  margin:20px 0;
+}
+
+.cakeIcon{
+  font-size:50px;
+  animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+.progressBar{
+  width:220px;
+  height:12px;
+  background:#f0d6eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin:auto;
+}
+
+.progressFill{
+  height:100%;
+  width:0%;
+  background:#ff6f91;
+  border-radius:20px;
+  animation:loadProgress 3s forwards;
+}
+
+@keyframes loadProgress{
+  from{width:0%;}
+  to{width:100%;}
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+/* WHITE BUTTON BELOW FINAL PAGE */
+.bottomWhiteBtn{
+  position: fixed;   /* ⭐ KEY FIX */
+  bottom: 15px;      /* always visible */
+  left: 50%;
+  transform: translateX(-50%);
+  padding:14px 20px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff4d6d;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  transition:0.3s;
+  width:80%;
+}
+
+.bottomWhiteBtn:hover{
+  transform:translateX(-50%) scale(1.05);
+}
+
+.bottomWhiteBtn:hover{
+  transform:scale(1.05);
+}
+
+.bottomWhiteBtn:hover{
+  transform:translateX(-50%) scale(1.05);
+}
+
+
+/* top flowers */
+
+#cakeScreen{
+position:relative;
+}
+
+#cakeScreen::before{
+content:"🌸 🌷 🌸 🌷 🌸 🌷 🌸";
+position:absolute;
+top:30px;
+width:100%;
+text-align:center;
+font-size:40px;
+opacity:.6;
+}
+
+/* screens */
+
+#cakeScreen{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding-top:0;
+}
+
+/* cake */
+
+.cake{
+position:relative;
+width:220px;
+margin:auto;
+}
+
+.layer{
+height:60px;
+border-radius:10px;
+margin:auto;
+}
+
+.layer1{background:#ff9bb0;width:220px;}
+.layer2{background:#ff7f9c;width:180px;margin-top:-10px;}
+.layer3{background:#ff6286;width:140px;margin-top:-10px;}
+
+.candle{
+position:absolute;
+width:10px;
+height:35px;
+background:white;
+top:-35px;
+}
+
+.c1{left:60px;}
+.c2{left:105px;}
+.c3{left:150px;}
+
+.flame{
+position:absolute;
+width:12px;
+height:18px;
+background:orange;
+border-radius:50%;
+top:-18px;
+left:-1px;
+animation:flicker .2s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1)}
+to{transform:scale(1.2)}
+}
+
+button{
+margin-top:25px;
+padding:14px 28px;
+font-size:16px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+}
+
+.blow .flame{
+display:none;
+}
+
+/* floating balloons */
+
+.balloonFloat{
+position:absolute;
+bottom:-120px;
+width:40px;
+height:50px;
+border-radius:50%;
+opacity:.8;
+animation:floatUp linear infinite;
+}
+
+.balloonFloat::after{
+content:'';
+position:absolute;
+width:2px;
+height:40px;
+background:#888;
+left:50%;
+top:50px;
+}
+
+@keyframes floatUp{
+from{transform:translateY(0)}
+to{transform:translateY(-120vh)}
+}
+
+/* card */
+
+.card{
+width:420px;
+background:white;
+padding:30px;
+border-radius:40px;
+box-shadow:0 35px 90px rgba(0,0,0,.12);
+text-align:center;
+}
+
+/* balloon game */
+
+.balloonContainer{
+position:relative;
+width:400px;
+height:260px;
+margin:20px auto;
+}
+
+/* hidden words */
+
+.hiddenWord{
+position:absolute;
+transform:translateX(-50%);
+font-weight:600;
+color:#b0004f;
+font-size:22px;
+opacity:0;
+transition:.4s;
+}
+
+.showWord{
+opacity:1;
+}
+
+.w1{left:70px;top:60px;}
+.w2{left:170px;top:80px;}
+.w3{left:250px;top:80px;}
+.w4{left:350px;top:60px;}
+
+/* balloons */
+
+.balloon{
+position:absolute;
+width:75px;
+height:95px;
+border-radius:50%;
+cursor:pointer;
+transition:.4s;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-6px)}
+}
+
+.b1{left:35px;top:20px;background:#ff8fab;}
+.b2{left:135px;top:35px;background:#ffc2d1;}
+.b3{left:225px;top:35px;background:#ffb3c6;}
+.b4{left:315px;top:20px;background:#e0aaff;}
+
+.pop{
+transform:scale(0);
+opacity:0;
+}
+
+.knot{
+position:absolute;
+width:12px;
+height:12px;
+background:inherit;
+transform:rotate(45deg);
+bottom:-7px;
+left:50%;
+margin-left:-6px;
+}
+
+/* balloon strings */
+
+.strings{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.strings path{
+stroke:#c5c5c5;
+stroke-width:1.2;
+fill:none;
+}
+
+/* confetti */
+
+.confetti{
+position:fixed;
+width:6px;
+height:10px;
+top:-10px;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(360deg)}
+}
+
+/* next button */
+
+.nextBtn{
+margin-top:5px;
+padding:14px 40px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#ff9a9e,#fecfef);
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+color:#7a004f;
+display:none;
+position:relative;
+top:-30px;
+}
+
+.nextBtn:hover{
+transform:scale(1.08);
+}
+
+/* MOBILE FIX FOR CAKE SCREEN */
+@media (max-width:600px){
+
+  #cakeScreen{
+    padding-top:40px;
+    justify-content:flex-start;
+  }
+
+  .cake{
+    transform:scale(0.85);
+  }
+
+  #cakeScreen button{
+    margin-top:20px;
+    position:relative;
+    bottom:40px;
+    width:75%;
+    font-size:16px;
+    padding:12px 18px;
+  }
+
+}
+
+/* MOBILE RESPONSIVE FIX */
+@media (max-width: 600px){
+
+  .birthdayTitle{
+    font-size:32px;
+    letter-spacing:1px;
+    padding:0 10px;
+    text-align:center;
+  }
+
+  .glassCard{
+    width:85%;
+    padding:25px 20px;
+    border-radius:25px;
+  }
+
+  .finalMessage{
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  .bottomWhiteBtn{
+    font-size:16px;
+    padding:14px 20px;
+    width:80%;
+    bottom:20px;
+  }
+
+  .floatingHearts span{
+    font-size:18px;
+  }
+
+}
+
+@media (max-width:600px){
+
+  .cake{
+    transform:scale(0.8);
+    margin-bottom:20px;
+  }
+
+  #cakeScreen button{
+    margin-top:15px;
+    width:80%;
+    font-size:16px;
+  }
+
+}
+
+/* MOBILE FIX */
+@media (max-width:600px){
+
+  .birthdayTitle{
+    font-size:34px;
+    text-align:center;
+    padding:0 10px;
+  }
+
+  .glassCard{
+    width:90%;
+    padding:25px 20px;
+  }
+
+  .finalMessage{
+    font-size:16px;
+  }
+
+  .cake{
+    transform:scale(0.75);
+    margin-bottom:10px;
+  }
+
+  #cakeScreen button{
+    margin-top:10px;
+    width:80%;
+    font-size:16px;
+    padding:12px 18px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loginScreen" class="screen">
+  <div class="loginTitle">Enter Your Special Date 💖</div>
+  <div class="inputWrapper">
+      <div class="catFace" id="catFace">
+          <div class="ear earLeft"></div>
+          <div class="ear earRight"></div>
+          <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+          <div class="mouth"></div>
+          <div class="blush blushLeft" id="blushL"></div>
+          <div class="blush blushRight" id="blushR"></div>
+      </div>
+      <input type="password" id="dateInput" placeholder="DDMM"
+             onfocus="coverEyes()" onblur="uncoverEyes()">
+  </div>
+  <button onclick="checkDate()">Unlock</button>
+</div>
+
+<div id="nextScreen" class="screen">
+  <div class="birthdayCard">
+      <div class="imageBox">
+          <div class="cuteChar">
+              <div class="charEar leftEar"></div>
+              <div class="charEar rightEar"></div>
+              <div class="charEyes"><div class="charEye"></div><div class="charEye"></div></div>
+              <div class="charMouth"></div>
+              <div class="charBlush leftBlush"></div>
+              <div class="charBlush rightBlush"></div>
+          </div>
+      </div>
+      <h2 id="ageText"></h2>
+      <p>Yes, it's YOU! A little surprise awaits...</p>
+      <button class="startBtn">🎁 Start the surprise</button>
+  </div>
+</div>
+
+<div id="loadingScreen" class="screen loadingPage">
+  <div class="loadingContent">
+    <div class="cakeIcon">🎂</div>
+    <h2>Loading your birthday surprise...</h2>
+    <div class="progressBar">
+      <div class="progressFill"></div>
+    </div>
+  </div>
+</div>
+
+<div id="finalScreen" class="screen finalFancy">
+  <div class="floatingHearts"></div>
+  <h1 class="birthdayTitle">🎉 HAPPY BIRTHDAY MINAL🎉</h1>
+  <div class="glassCard">
+      <p class="finalMessage">
+        You are the most beautiful part of this world 💖  
+        May your smile never fade and your dreams shine brighter every year ✨
+      </p>
+  </div>
+<button class="bottomWhiteBtn" onclick="switchScreen('finalScreen','cakeScreen')">
+  🎂 Let’s Blow The Candles
+</button>
+</div>
+
+<!-- cake screen -->
+
+<div id="cakeScreen" class="screen">
+
+<div class="cake" id="cake">
+
+<div class="candle c1"><div class="flame"></div></div>
+<div class="candle c2"><div class="flame"></div></div>
+<div class="candle c3"><div class="flame"></div></div>
+
+<div class="layer layer3"></div>
+<div class="layer layer2"></div>
+<div class="layer layer1"></div>
+
+</div>
+
+<button id="actionBtn" onclick="handleClick()">Click to blow the candles</button>
+
+</div>
+
+<!-- balloon screen -->
+
+<div id="balloonScreen" class="screen">
+
+<div class="card">
+
+<h3>Pop all 4 balloons</h3>
+
+<div class="balloonContainer">
+
+<div class="hiddenWord w1" id="w1">You</div>
+<div class="hiddenWord w2" id="w2">are</div>
+<div class="hiddenWord w3" id="w3">a</div>
+<div class="hiddenWord w4" id="w4">Cutiee</div>
+
+<div class="balloon b1" onclick="popBalloon(this,'w1')"><div class="knot"></div></div>
+<div class="balloon b2" onclick="popBalloon(this,'w2')"><div class="knot"></div></div>
+<div class="balloon b3" onclick="popBalloon(this,'w3')"><div class="knot"></div></div>
+<div class="balloon b4" onclick="popBalloon(this,'w4')"><div class="knot"></div></div>
+
+<svg class="strings" viewBox="0 0 400 340">
+<path d="M70 120 C10 180 150 240 200 320"/>
+<path d="M170 135 C140 200 180 260 200 320"/>
+<path d="M250 135 C270 200 220 260 200 320"/>
+<path d="M350 120 C390 180 260 240 200 320"/>
+</svg>
+
+</div>
+
+<button id="nextBtn" class="nextBtn" onclick="goToEnvelope()">
+  Next →
+</button>
+
+</div>
+
+</div>
+
+<audio id="bgMusic" src="your-music-file.mp3"></audio>
+
+<script>
+
+function switchScreen(hide, show){
+  document.getElementById(hide).style.display="none";
+  document.getElementById(show).style.display="flex";
+}
+
+function checkDate(){
+  let input=document.getElementById("dateInput").value;
+  let cat=document.getElementById("catFace");
+
+  if(input==="1803"){
+    cat.classList.add("happy","jump");
+    document.getElementById("blushL").classList.add("showBlush");
+    document.getElementById("blushR").classList.add("showBlush");
+
+    setTimeout(()=>switchScreen("loginScreen","nextScreen"),1000);
+  }else{
+    cat.classList.add("sad");
+    setTimeout(()=>cat.classList.remove("sad"),1500);
+  }
+}
+
+function coverEyes(){ document.getElementById("catFace").classList.add("coverEyes"); }
+function uncoverEyes(){ document.getElementById("catFace").classList.remove("coverEyes"); }
+
+let birthYear=2002;
+let age=new Date().getFullYear()-birthYear;
+document.getElementById("ageText").innerText=
+`A Cutiepie was born today, ${age} years ago!`;
+
+  document.querySelector(".startBtn").addEventListener("click",()=>{
+
+  // Step 1 → Go to loading screen
+  switchScreen("nextScreen","loadingScreen");
+
+  // Step 2 → Wait 3 seconds
+  setTimeout(()=>{
+
+    // Step 3 → Go to final screen
+    switchScreen("loadingScreen","finalScreen");
+
+    let music=document.getElementById("bgMusic");
+    if(music){ music.play().catch(()=>{}); }
+
+    // 🎉 Confetti
+    for(let i=0;i<80;i++){
+      let conf=document.createElement("div");
+      conf.style.position="fixed";
+      conf.style.width="8px";
+      conf.style.height="8px";
+      conf.style.background=`hsl(${Math.random()*360},100%,60%)`;
+      conf.style.top="-10px";
+      conf.style.left=Math.random()*100+"%";
+      conf.style.borderRadius="50%";
+      conf.style.animation="fall 3s linear forwards";
+      document.body.appendChild(conf);
+      setTimeout(()=>conf.remove(),3000);
+    }
+
+    // 💖 Floating hearts
+    let heartContainer=document.querySelector(".floatingHearts");
+
+    for(let i=0;i<20;i++){
+      let heart=document.createElement("span");
+      heart.innerHTML="💖";
+      heart.style.left=Math.random()*100+"%";
+      heart.style.fontSize=(15+Math.random()*25)+"px";
+      heart.style.animationDuration=(4+Math.random()*4)+"s";
+      heartContainer.appendChild(heart);
+    }
+
+  },3000);
+
+});
+
+let stage=0;
+
+function handleClick(){
+
+if(stage===0){
+
+document.getElementById("cake").classList.add("blow");
+
+startBalloons();
+
+document.getElementById("actionBtn").innerText="Let's pop some balloons";
+
+stage=1;
+
+}
+
+else{
+
+document.querySelectorAll(".balloonFloat").forEach(b=>b.remove());
+
+switchScreen("cakeScreen","balloonScreen");
+
+}
+
+}
+
+function startBalloons(){
+
+const colors=["#ff4d6d","#ff85a1","#f72585","#b5179e","#7209b7","#4cc9f0"];
+
+for(let i=0;i<12;i++){
+
+let b=document.createElement("div");
+
+b.className="balloonFloat";
+
+b.style.left=Math.random()*100+"vw";
+b.style.background=colors[Math.floor(Math.random()*colors.length)];
+b.style.animationDuration=(6+Math.random()*6)+"s";
+
+document.body.appendChild(b);
+
+}
+
+}
+
+let count=0;
+
+function popBalloon(b,id){
+
+b.classList.add("pop");
+
+setTimeout(()=>{
+b.style.display="none";
+document.getElementById(id).classList.add("showWord");
+},300);
+
+count++;
+
+if(count===4){
+
+setTimeout(confetti,800);
+
+document.getElementById("nextBtn").style.display="inline-block";
+
+}
+
+}
+
+function confetti(){
+
+for(let i=0;i<60;i++){
+
+let c=document.createElement("div");
+
+c.className="confetti";
+
+c.style.left=Math.random()*100+"%";
+c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+c.style.animationDuration=(2+Math.random()*3)+"s";
+
+document.body.appendChild(c);
+
+}
+
+}
+function goToEnvelope() {
+  window.location.href = "envelope.html";
+}
+</script>
+</body>
+</html>
