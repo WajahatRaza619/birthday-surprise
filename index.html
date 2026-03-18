@@ -636,29 +636,42 @@ top:-30px;
 transform:scale(1.08);
 }
 
-/* MOBILE FIX FOR CAKE SCREEN */
 @media (max-width:600px){
 
-  #cakeScreen{
-    padding-top:40px;
-    justify-content:flex-start;
-  }
-
-  .cake{
-    transform:scale(0.85);
-  }
-
-  #cakeScreen button{
-    margin-top:20px;
-    position:relative;
-    bottom:40px;
-    width:75%;
-    font-size:16px;
-    padding:12px 18px;
+  #cakeScreen .cake {
+    transform: scale(0.75);
+    margin-bottom: 20px;
   }
 
 }
 
+  /* GLOBAL FIX (must be outside media query) */
+#cakeScreen {
+  height: 100vh;     /* fallback */
+  height: 100dvh;    /* mobile fix */
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#cakeScreen.screen {
+  padding-top: 0 !important;
+}
+
+/* Button base fix */
+#cakeScreen button {
+  height: auto !important;
+  min-height: unset !important;
+  flex: none !important;
+  display: inline-block;
+  width: auto;
+  max-width: 280px;
+  padding: 14px 24px;
+  font-size: 16px;
+  border-radius: 25px;
+}
 /* MOBILE RESPONSIVE FIX */
 @media (max-width: 600px){
 
@@ -792,11 +805,11 @@ transform:scale(1.08);
 
 <div id="finalScreen" class="screen finalFancy">
   <div class="floatingHearts"></div>
-  <h1 class="birthdayTitle">🎉 HAPPY BIRTHDAY MINAL🎉</h1>
+  <h1 class="birthdayTitle">🎉 HAPPY BIRTHDAY MINAL 🎉</h1>
   <div class="glassCard">
       <p class="finalMessage">
-        You are the most beautiful part of this world 💖  
-        May your smile never fade and your dreams shine brighter every year ✨
+        You make everything around you brighter...
+        May your happiness grow endlessly and your dreams turn into the most beautiful reality 💖✨
       </p>
   </div>
 <button class="bottomWhiteBtn" onclick="switchScreen('finalScreen','cakeScreen')">
@@ -834,10 +847,10 @@ transform:scale(1.08);
 
 <div class="balloonContainer">
 
-<div class="hiddenWord w1" id="w1">You</div>
-<div class="hiddenWord w2" id="w2">are</div>
-<div class="hiddenWord w3" id="w3">a</div>
-<div class="hiddenWord w4" id="w4">Cutiee</div>
+<div class="hiddenWord w1" id="w1">Always</div>
+<div class="hiddenWord w2" id="w2">Keep</div>
+<div class="hiddenWord w3" id="w3">Smiling</div>
+<div class="hiddenWord w4" id="w4">Forever</div>
 
 <div class="balloon b1" onclick="popBalloon(this,'w1')"><div class="knot"></div></div>
 <div class="balloon b2" onclick="popBalloon(this,'w2')"><div class="knot"></div></div>
@@ -853,9 +866,7 @@ transform:scale(1.08);
 
 </div>
 
-<button id="nextBtn" class="nextBtn" onclick="goToEnvelope()">
-  Next →
-</button>
+<button id="nextBtn" class="nextBtn">Next →</button>
 
 </div>
 
@@ -1025,9 +1036,7 @@ document.body.appendChild(c);
 }
 
 }
-function goToEnvelope() {
-  window.location.href = "envelope.html";
-}
+
 </script>
 </body>
 </html>
