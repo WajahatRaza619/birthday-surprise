@@ -706,6 +706,17 @@ transform:scale(1.08);
 
 }
 
+.nextBtn {
+  position: relative;
+  z-index: 9999; /* bring button to front */
+}
+
+.balloonContainer,
+.card {
+  position: relative;
+  z-index: 1;
+}
+
 @media (max-width:600px){
 
   .cake{
@@ -866,7 +877,7 @@ transform:scale(1.08);
 
 </div>
 
-<button id="nextBtn" class="nextBtn" onclick="goToEnvelope()">Next →</button>
+<button id="nextBtn" class="nextBtn" onclick="goToEnvelope(event)">Next →</button>
 
 </div>
 
@@ -1037,10 +1048,9 @@ document.body.appendChild(c);
 
 }
 
-function goToEnvelope() {
-  setTimeout(() => {
-    window.location.href = "envelope.html";
-  }, 300);
+function goToEnvelope(e) {
+  e.stopPropagation(); // prevent interference
+  window.location.href = "./envelope.html";
 }
 
 </script>
